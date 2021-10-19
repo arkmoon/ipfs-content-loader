@@ -1,0 +1,20 @@
+/* Animation for spinning loading icon */
+.refresh-icon {
+  transition-duration: 0.8s;
+  transition-property: transform;
+}
+.refresh-icon--spin {
+  animation: spin360 1s ease-out forwards;
+}
+
+@keyframes spin360 {
+  0% { transform: rotate(0); }
+  100% { transform: rotate(360deg); }
+}
+
+.active-modal {
+  height: 100vh;
+  overflow: hidden;
+  position: fixed;
+  width: 100vw;
+}
