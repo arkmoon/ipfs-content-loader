@@ -38,7 +38,7 @@ function Modal({
   return (
     <FocusTrap>
       <div className="fixed top-0 z-10 h-screen w-full flex justify-center items-center bg-black bg-opacity-70 backdrop-filter backdrop-blur overflow-scroll">
-        <div className="absolute top-0 rounded-3xl bg-image w-full sm:w-9/12 mx-3 md:mx-5 lg:mx-0 shadow-md flex flex-col md:flex-row items-center z-10 overflow-hidden bg-center bg-cover bg-white">
+        <div className="absolute top-20 rounded-3xl bg-image w-full sm:w-9/12 2xl:w-1/2 mx-3 md:mx-5 lg:mx-0 shadow-md flex flex-col md:flex-row items-center z-10 overflow-hidden bg-center bg-cover bg-white">
           {
             /**
              * Close button
