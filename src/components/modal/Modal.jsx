@@ -36,7 +36,7 @@ function Modal({
 
   return (
     <FocusTrap>
-      <div className="fixed top-0 z-10 h-screen w-full flex justify-center items-center bg-black bg-opacity-70 backdrop-filter backdrop-blur overflow-scroll">
+      <div className="fixed top-0 z-10 h-screen w-full flex justify-center items-center bg-black bg-opacity-70 backdrop-filter backdrop-blur overflow-y-scroll">
         <div className="modal-close cursor-pointer z-50 absolute top-3 right-3">
           <button onClick={handleClose} ref={closeRef}>
             <span className="sr-only">close modal</span>
