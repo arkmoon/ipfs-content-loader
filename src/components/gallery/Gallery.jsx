@@ -1,49 +1,52 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getJson } from '../../util/util';
+import { getItemJson } from '../../util/util';
 import Button from '../button/Button';
 import ArrowSvg from '../../assets/svg/arrows.svg';
 import Image from '../image/Image';
 import { DispatchModalContext } from '../../context/ModalContext';
+import ModalBodyAttributes from './ModalBodyAttributes';
+import ModalBodyProject from './ModalBodyProject';
 
 function Gallery() {
   function getMore() {
     if (!endOfLine) {
       setActiveIndex(currentIndex);
-      setCurrentIndex(currentIndex += loadImageAmount);
+      setCurrentIndex(currentIndex + loadImageAmount);
     }
   }
 
   function showModal(image) {
     return function (e) {
       function buildABody(img) {
+        // Fetch images.
         return (img?.attributes && img?.attributes?.length)
           ? (
-            <React.Fragment key="modal-body">
-              <h3 className="mb-4 font-bold text-xl flex items-center text-gray-500">Attributes:</h3>
-              <ul className="text-base text-gray-600 font-normal text-left">
-                {
-                  img?.attributes?.map((att, i) => (
-                    (att?.trait_type && att?.value)
-                      ? (
-                        <li className="mb-4" key={`${att?.trait_type}-${att?.value}-${i}`}>
-                          <strong className="uppercase">{att?.trait_type}</strong><br />{att?.value}
-                        </li>
-                      )
-                      : null
-                  ))
-                }
-              </ul>
-            </React.Fragment>
+            <ModalBodyAttributes attributes={img?.attributes} key="gallery-item-attributes" />
           )
           : null;
       }
 
       e && e.preventDefault();
 
+      const project = (localStorage.getItem('project'))
+        ? JSON.parse(localStorage.getItem('project'))
+        : {};
+
       dispatchModal({
         altText: image?.name,
-        body: [buildABody(image)],
+        body: [
+          buildABody(image),
+          <hr className="border-2 my-4" key="hr" />,
+          <ModalBodyProject
+            description={project?.description}
+            fee_recipient={project?.fee_recipient}
+            image={project?.image}
+            key={`${image?.name} project-gallery-properties`}
+            name={project?.name}
+            seller_fee_basis_points={project?.seller_fee_basis_points}
+          />
+        ],
         imgSrc: image?.imgSrc,
         isActive: true,
         title: image?.name,
@@ -63,10 +66,10 @@ function Gallery() {
   const dispatchModal = React.useContext(DispatchModalContext);
 
   // Local State
-  let [activeIndex, setActiveIndex] = React.useState();
-  let [currentIndex, setCurrentIndex] = React.useState(loadImageAmount + 1);
-  let [endOfLine, setEndOfLine] = React.useState(false);
-  let [images, setImages] = React.useState(
+  const [activeIndex, setActiveIndex] = React.useState();
+  const [currentIndex, setCurrentIndex] = React.useState(loadImageAmount + 1);
+  const [endOfLine, setEndOfLine] = React.useState(false);
+  const [images, setImages] = React.useState(
     (localStorage.getItem('images'))
       ? JSON.parse(localStorage.getItem('images'))
       : [{}]
@@ -84,7 +87,7 @@ function Gallery() {
 
       // Build out our next array of promises.
       const promises = nextSet.map(async (i) => {
-        const response = await getJson(`https://${rootUrl}.ipfs.dweb.link/${i}.json`);
+        const response = await getItemJson(`https://${rootUrl}.ipfs.dweb.link/${i}.json`);
         return response;
       });
 
@@ -160,8 +163,6 @@ function Gallery() {
           })
         }
       </div>
-
-
       {
         (!endOfLine)
           ? (
@@ -178,6 +179,7 @@ function Gallery() {
     </>
   );
 }
+
 Gallery.propTypes = {
   altText: PropTypes.string,
 };

@@ -1,23 +1,41 @@
 import Axios from 'axios';
 
-async function getJson(jsonUrl) {
-  // Get all JSON until we hit an error.
-  return await Axios
-    .get(jsonUrl)
-    .then((response) => {
-      return {
-        attributes: [...response?.data?.attributes || {}],
-        image: response?.data?.image || '',
-        name: response?.data?.name || '',
-        tokenId: response?.data?.tokenId || '',
-      };
-    })
-    .catch((e) => {
-      console.error(e);
-      return null;
+async function getItemJson(url) {
+  try {
+    const res = await Axios.get(url);
+
+    return ({
+      attributes: [...res?.data?.attributes || {}],
+      image: res?.data?.image || '',
+      name: res?.data?.name || '',
+      tokenId: res?.data?.tokenId || '',
     });
+  } catch (err) {
+    // Handle Error Here
+    console.error(err);
+    return null;
+  }
+}
+
+async function getProjectJson(url) {
+  try {
+    const res = await Axios.get(url);
+
+    return ({
+      description: res?.data?.description || '',
+      fee_recipient: res?.data?.fee_recipient || '',
+      image: res?.data?.image || '',
+      name: res?.data?.name || '',
+      seller_fee_basis_points: res?.data?.seller_fee_basis_points || 0,
+    });
+  } catch (err) {
+    // Handle Error Here
+    console.error(err);
+    return null;
+  }
 }
 
 export {
-  getJson,
+  getItemJson,
+  getProjectJson,
 };

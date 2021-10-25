@@ -2,6 +2,7 @@ import React from 'react';
 import Modal from './components/modal/Modal';
 import Gallery from './components/gallery/Gallery';
 import { DispatchModalContext, initialModal, ModalContext } from './context/ModalContext';
+import { getProjectJson } from './util/util';
 import './App.css';
 
 function App() {
@@ -25,6 +26,26 @@ function App() {
   let [activeModal, setActiveModal] = React.useState({
     ...initialModal,
   });
+
+  let [currentProject, setCurrentProject] = React.useState(
+    (localStorage.getItem('project'))
+      ? JSON.parse(localStorage.getItem('project'))
+      : {}
+  );
+
+  // Load the project settings.
+  React.useEffect(() => {
+    const projectUrl = import.meta.env.VITE_BLOCKCHAIN_PROJECT_INDEX;
+
+    getProjectJson(`https://${projectUrl}.ipfs.dweb.link`).then((res) => {
+      setCurrentProject({
+        ...res,
+      });
+    });
+  }, []);
+
+  // Cache the project settings.
+  localStorage.setItem('project', JSON.stringify(currentProject));
 
   return (
     <div className="App">
