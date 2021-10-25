@@ -45,7 +45,7 @@ function Modal({
             </svg>
           </button>
         </div>
-        <div className="z-10 overflow-hidden flex flex-col lg:grid lg:grid-cols-2 gap-5 top-10 lg:top-20 absolute mx-20 xs:max-w-xs">
+        <div className="z-10 overflow-hidden flex flex-col lg:grid lg:grid-cols-2 gap-5 top-10 lg:top-20 absolute px-6 xs:max-w-xs max-w-full">
           <img className="w-full rounded-3xl shadow-xl mb-10 lg:mb-20" src={activeModal?.imgSrc} alt={activeModal?.altText} />
 
           <div className="bg-white py-5 md:py-8 px-4 rounded-3xl shadow-xl mb-10 lg:mb-20">

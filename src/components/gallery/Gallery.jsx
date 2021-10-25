@@ -37,7 +37,7 @@ function Gallery() {
         altText: image?.name,
         body: [
           buildABody(image),
-          <hr className="border-2 my-4" key="hr" />,
+          <hr className="border-1 my-4" key="hr" />,
           <ModalBodyProject
             description={project?.description}
             fee_recipient={project?.fee_recipient}

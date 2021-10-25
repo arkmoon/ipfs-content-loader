@@ -23,7 +23,7 @@ function ModalBodyProject({
         <h3 className="text-lg font-bold">About {name}</h3>
       </div>
       <p className="clear-left mb-4">{description}</p>
-      <p className="mb-4"><strong>Fee Recipient:</strong> {fee_recipient}</p>
+      <p className="mb-4"><strong>Fee Recipient:</strong> <span className="overflow-x-auto max-w-full block">{fee_recipient}</span></p>
       <p><strong>Seller Fee Basis Points:</strong> {seller_fee_basis_points}</p>
     </div>
   );
