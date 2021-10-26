@@ -40,11 +40,9 @@ function Gallery() {
           <hr className="border-1 my-4" key="hr" />,
           <ModalBodyProject
             description={project?.description}
-            fee_recipient={project?.fee_recipient}
             image={project?.image}
             key={`${image?.name} project-gallery-properties`}
             name={project?.name}
-            seller_fee_basis_points={project?.seller_fee_basis_points}
           />
         ],
         imgSrc: image?.imgSrc,

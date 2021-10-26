@@ -4,10 +4,8 @@ import Image from '../image/Image';
 
 function ModalBodyProject({
   description = '',
-  fee_recipient = '',
   image = '',
   name = '',
-  seller_fee_basis_points = 0,
 }) {
   const imgSrc = `https://ipfs.io/ipfs/${image?.split('//')[1]}`;
 
@@ -23,8 +21,6 @@ function ModalBodyProject({
         <h3 className="text-lg font-bold">About {name}</h3>
       </div>
       <p className="clear-left mb-4">{description}</p>
-      <p className="mb-4"><strong>Fee Recipient:</strong> <span className="overflow-x-auto max-w-full block">{fee_recipient}</span></p>
-      <p><strong>Seller Fee Basis Points:</strong> {seller_fee_basis_points}</p>
     </div>
   );
 }
